@@ -5,7 +5,8 @@
     "require": {
         "php": ">=7.1.0",
         "lucidtaz/minimax": "^0.2.0",
-        "silex/silex": "^2.2"
+        "silex/silex": "^2.2",
+        "monolog/monolog": "^1.23"
     },
     "license": "MIT",
     "authors": [

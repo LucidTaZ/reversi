@@ -12,12 +12,22 @@
                         {% include '_player_token.html.twig' with { 'color': 'blue' } %}
                     {% elseif gameState.board.getField(y, x) == 'R' %}
                         {% include '_player_token.html.twig' with { 'color': 'red' } %}
+                    {% else %}
+                        <form action="/move/{{x}}/{{y}}" method="post">
+                            <input type="submit" value="X" />
+                        </form>
                     {% endif %}
                 </td>
             {% endfor %}
         </tr>
     {% endfor %}
 </table>
+
+<p>
+    <form action="/pass" method="post">
+        <input type="submit" value="Pass" />
+    </form>
+</p>
 
 <p>
     <form action="/clear" method="post">

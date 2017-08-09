@@ -33,8 +33,14 @@ $app->get('/', function () use ($app, $gameState) {
     return $gameState;
 });
 
-$app->get('/move/{x}/{y}', function (int $x, int $y) use ($app, $gameState) {
+$app->post('/move/{x}/{y}', function (int $x, int $y) use ($app, $gameState) {
     $gameState->makeMove($y, $x);
+    $app->session->set('gamestate', serialize($gameState));
+    return $app->redirect('/');
+});
+
+$app->post('/pass', function () use ($app, $gameState) {
+    $gameState->pass();
     $app->session->set('gamestate', serialize($gameState));
     return $app->redirect('/');
 });

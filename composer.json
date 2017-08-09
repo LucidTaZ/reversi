@@ -1,0 +1,20 @@
+{
+    "name": "lucidtaz/reversi",
+    "description": "Boardgame to play against the AI",
+    "type": "project",
+    "require": {
+        "php": ">=7.1.0",
+        "lucidtaz/minimax": "^0.2.0",
+        "silex/silex": "^2.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thijs Zumbrink",
+            "email": "thijs@schalpoen.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "lucidtaz\\reversi\\": "app/" }
+    }
+}

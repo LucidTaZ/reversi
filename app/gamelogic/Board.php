@@ -15,23 +15,26 @@ class Board
      */
     private $cells;
 
+    public const SIZE_X = 8;
+    public const SIZE_Y = 8;
+
     public function __construct()
     {
         $this->initializeEmptyFields();
         $this->placeStartingTokens();
     }
 
-    private function initializeEmptyFields()
+    private function initializeEmptyFields(): void
     {
         $none = Player::NONE();
-        for ($row = 0; $row < 8; $row++) {
-            for ($column = 0; $column < 8; $column++) {
+        for ($row = 0; $row < self::SIZE_Y; $row++) {
+            for ($column = 0; $column < self::SIZE_X; $column++) {
                 $this->cells[$row][$column] = $none;
             }
         }
     }
 
-    private function placeStartingTokens()
+    private function placeStartingTokens(): void
     {
         $this->cells[3][3] = Player::BLUE();
         $this->cells[3][4] = Player::RED();
@@ -41,7 +44,7 @@ class Board
 
     public function isWithinBounds($row, $column): bool
     {
-        return $row >= 0 && $row < 8 && $column >= 0 && $column < 8;
+        return $row >= 0 && $row < self::SIZE_Y && $column >= 0 && $column < self::SIZE_X;
     }
 
     /**
@@ -53,7 +56,7 @@ class Board
         return $this->cells[$row][$column];
     }
 
-    public function fillField(int $row, int $column, Player $owner)
+    public function fillField(int $row, int $column, Player $owner): void
     {
         $this->cells[$row][$column] = $owner;
     }

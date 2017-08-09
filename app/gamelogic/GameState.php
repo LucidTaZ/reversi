@@ -37,7 +37,7 @@ class GameState implements GameStateInterface
         $this->turn = clone $this->turn;
     }
 
-    public function makeMove(int $row, int $column)
+    public function makeMove(int $row, int $column): void
     {
         if (!$this->isLegalMove($row, $column)) {
             throw new BadMethodCallException('Illegal move');
@@ -52,7 +52,7 @@ class GameState implements GameStateInterface
         $this->proceedPlayer();
     }
 
-    public function pass()
+    public function pass(): void
     {
         if ($this->lastPlayerPassed) {
             throw new BadMethodCallException('Cannot pass after the previous player passed.');
@@ -62,7 +62,7 @@ class GameState implements GameStateInterface
         $this->proceedPlayer();
     }
 
-    private function capturePieces(int $moveRow, int $moveColumn, Generator $anchorPieces)
+    private function capturePieces(int $moveRow, int $moveColumn, Generator $anchorPieces): void
     {
         foreach ($anchorPieces as $anchorPiece) {
             list($anchorRow, $anchorColumn) = $anchorPiece;
@@ -80,7 +80,7 @@ class GameState implements GameStateInterface
         }
     }
 
-    private function proceedPlayer()
+    private function proceedPlayer(): void
     {
         if ($this->turn->equals(Player::BLUE())) {
             $this->turn = Player::RED();

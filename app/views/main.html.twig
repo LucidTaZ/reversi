@@ -1,0 +1,19 @@
+<p>
+    Current player is: {{ gameState.getNextPlayer() }}
+</p>
+
+<table>
+    {% for y in range(0, boardDimensions.height - 1) %}
+        <tr>
+            {% for x in range(0, boardDimensions.width - 1) %}
+                <td style="width: 50px; height: 50px; border: 1px solid black;">
+                    {% if gameState.board.getField(y, x) == 'B' %}
+                        {% include '_player_token.html.twig' with { 'color': 'blue' } %}
+                    {% elseif gameState.board.getField(y, x) == 'R' %}
+                        {% include '_player_token.html.twig' with { 'color': 'red' } %}
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

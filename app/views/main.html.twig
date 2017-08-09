@@ -1,5 +1,6 @@
 <p>
-    Current player is: {{ gameState.getNextPlayer() }}
+    Current player is: {{ gameState.getNextPlayer() }}<br />
+    Score: {{ gameState.evaluateScore(gameState.getNextPlayer()) }}
 </p>
 
 <table>
@@ -17,3 +18,9 @@
         </tr>
     {% endfor %}
 </table>
+
+<p>
+    <form action="/clear" method="post">
+        <input type="submit" value="Clear session" />
+    </form>
+</p>

@@ -12,7 +12,7 @@
                         {% include '_player_token.html.twig' with { 'color': 'blue' } %}
                     {% elseif gameState.board.getField(y, x) == 'R' %}
                         {% include '_player_token.html.twig' with { 'color': 'red' } %}
-                    {% else %}
+                    {% elseif gameState.isLegalMove(y, x) %}
                         <form action="/move/{{x}}/{{y}}" method="post">
                             <input type="submit" value="X" />
                         </form>

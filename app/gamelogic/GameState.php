@@ -120,7 +120,7 @@ class GameState implements GameStateInterface
         return $possibleMoves;
     }
 
-    private function isLegalMove(int $row, int $column): bool
+    public function isLegalMove(int $row, int $column): bool
     {
         foreach ($this->findAnchorPieces($row, $column) as $anchorPiece) {
             // At least one anchor piece found
@@ -151,6 +151,9 @@ class GameState implements GameStateInterface
                 if ($this->board->isOwnedBy($anchorCellY, $anchorCellX, $this->turn)) {
                     // We found our anchor piece, move becomes valid
                     yield [$anchorCellX, $anchorCellY];
+                    break;
+                } elseif (!$this->board->isOwnedBy($anchorCellY, $anchorCellX, $opponent)) {
+                    // Inspected field is not occupied by us nor the opponent, so it's an empty field
                     break;
                 }
             }

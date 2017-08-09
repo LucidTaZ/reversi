@@ -24,6 +24,20 @@
 </table>
 
 <p>
+    <form action="/move/auto" method="post">
+        Lookahead: <select name="lookAhead">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+        <input type="submit" value="Minimax move" />
+    </form>
+</p>
+
+<p>
     <form action="/pass" method="post">
         <input type="submit" value="Pass" />
     </form>
@@ -34,3 +48,14 @@
         <input type="submit" value="Clear session" />
     </form>
 </p>
+
+{% if analytics != null %}
+    <p>
+        Analytics of last Minimax move:
+        <ul>
+            <li>Nodes evaluated: {{ analytics.nodesEvaluated }}</li>
+            <li>Internal nodes evaluated: {{ analytics.internalNodesEvaluated }}</li>
+            <li>Leaf nodes evaluated: {{ analytics.leafNodesEvaluated }}</li>
+        </ul>
+    </p>
+{% endif %}

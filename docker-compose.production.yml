@@ -5,9 +5,6 @@ services:
     build:
       dockerfile: docker/images/app/Dockerfile
       context: .
-    volumes:
-      # Use local directory for faster development
-      - ./:/reversi
     networks:
       - frontend
   web:
@@ -15,11 +12,10 @@ services:
     build:
       dockerfile: docker/images/web/Dockerfile
       context: .
-    volumes:
-      # Use local directory for faster development
-      - ./app/public:/reversi/app/public
     environment:
-      - VIRTUAL_HOST=reversi.localhost
+      - VIRTUAL_HOST=betareversi.schalpoen.nl
+      - LETSENCRYPT_HOST=betareversi.schalpoen.nl
+      - LETSENCRYPT_EMAIL=thijs@schalpoen.nl
     networks:
       - entry
       - frontend

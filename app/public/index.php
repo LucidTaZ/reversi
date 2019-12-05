@@ -14,8 +14,8 @@ $app = new Application([
 
 if ($app->session->has('gamestate')) {
     /* @var $gameState GameState */
-    $gameState = unserialize($app->session->get('gamestate'));
-    $app->logger->info('Unserialized from session.');
+    $gameState = $app->session->get('gamestate');
+    $app->logger->info('Restored from session.');
 } else {
     $gameState = new GameState();
     $app->logger->info('Session not found, started fresh.');
@@ -38,7 +38,7 @@ $app->get('/', function () use ($gameState) {
 
 $app->post('/move/{x}/{y}', function (int $x, int $y) use ($app, $gameState) {
     $gameState->makeMove($y, $x);
-    $app->session->set('gamestate', serialize($gameState));
+    $app->session->set('gamestate', $gameState);
     return $app->redirect('/');
 })
 ->assert('x', '\d+')
@@ -49,14 +49,14 @@ $app->post('/move/auto', function (Request $request) use ($app, $gameState) {
     $minimax = new Engine($gameState->getNextPlayer(), $lookAhead);
 
     $newGameState = $minimax->decide($gameState);
-    $app->session->set('gamestate', serialize($newGameState));
+    $app->session->set('gamestate', $newGameState);
     $app->session->set('analytics', $minimax->getAnalytics());
     return $app->redirect('/');
 });
 
 $app->post('/pass', function () use ($app, $gameState) {
     $gameState->pass();
-    $app->session->set('gamestate', serialize($gameState));
+    $app->session->set('gamestate', $gameState);
     return $app->redirect('/');
 });
 

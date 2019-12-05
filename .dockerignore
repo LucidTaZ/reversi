@@ -1,0 +1,6 @@
+# Managed dependencies
+/vendor/
+
+# Development environment files
+/.idea
+/.git

@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    image: lucidtaz/reversi-app
+    build:
+      dockerfile: docker/images/app/Dockerfile
+      context: .
+    networks:
+      - frontend
+  web:
+    image: lucidtaz/reversi-web
+    build:
+      dockerfile: docker/images/web/Dockerfile
+      context: .
+    environment:
+      - VIRTUAL_HOST=reversi.schalpoen.nl
+      - LETSENCRYPT_HOST=reversi.schalpoen.nl
+      - LETSENCRYPT_EMAIL=thijs@schalpoen.nl
+    networks:
+      - entry
+      - frontend
+networks:
+  # For hooking up to a reverse proxy:
+  entry:
+    external:
+      name: nginx-proxy
+  # Webserver to application server:
+  frontend: {}

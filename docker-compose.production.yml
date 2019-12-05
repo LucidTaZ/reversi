@@ -13,8 +13,8 @@ services:
       dockerfile: docker/images/web/Dockerfile
       context: .
     environment:
-      - VIRTUAL_HOST=betareversi.schalpoen.nl
-      - LETSENCRYPT_HOST=betareversi.schalpoen.nl
+      - VIRTUAL_HOST=reversi.schalpoen.nl
+      - LETSENCRYPT_HOST=reversi.schalpoen.nl
       - LETSENCRYPT_EMAIL=thijs@schalpoen.nl
     networks:
       - entry

@@ -1,10 +1,11 @@
-FROM alpine:edge
-# edge because the current latest (3.7) doesn't have a composer package
+FROM php:7.4-fpm
 
-RUN apk add --update php7-fpm \
-    php7-session php7-ctype php7-iconv php7-mbstring \
-    composer unzip \
-    && rm -rf /var/cache/apk/*
+RUN apt-get update \
+    && apt-get install -y \
+    # Needed for composer:
+    git unzip
+
+RUN curl --silent --show-error https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
 WORKDIR /reversi
 
@@ -15,17 +16,5 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-# php-fpm config
-RUN echo "" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "; Dockerfile-managed settings:" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "[global]" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "error_log = /proc/self/fd/2" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "[www]" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "access.log = /proc/self/fd/2" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "listen = 9000" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "catch_workers_output = yes" >> /etc/php7/php-fpm.d/www.conf \
-    && echo "clear_env = no" >> /etc/php7/php-fpm.d/www.conf
-
-EXPOSE 9000
-
-CMD ["php-fpm7", "--nodaemonize"]
+RUN chown www-data /reversi
+USER www-data

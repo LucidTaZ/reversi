@@ -8,25 +8,13 @@ services:
     volumes:
       # Use local directory for faster development
       - ./:/reversi
-    networks:
-      - frontend
   web:
     image: lucidtaz/reversi-web
     build:
       dockerfile: docker/images/web/Dockerfile
       context: .
+    ports:
+    - "8080:80"
     volumes:
       # Use local directory for faster development
       - ./app/public:/reversi/app/public
-    environment:
-      - VIRTUAL_HOST=reversi.localhost
-    networks:
-      - entry
-      - frontend
-networks:
-  # For hooking up to a reverse proxy:
-  entry:
-    external:
-      name: nginx-proxy
-  # Webserver to application server:
-  frontend: {}
